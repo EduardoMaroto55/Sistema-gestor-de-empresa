@@ -15,6 +15,8 @@ import java.sql.Statement;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Conexion {
+    //Hola esto es un cambio en Git hub desde la web
+    
 
     private String sql;
     private boolean resultadoEspe;
