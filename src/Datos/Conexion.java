@@ -15,7 +15,7 @@ import java.sql.Statement;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Conexion {
-    //Hola esto es un cambio en Git hub desde la web
+    //Hola esto es un cambio en java netbeans como estas?
     
 
     private String sql;
