@@ -138,5 +138,12 @@ public class Usuario {
         }
 
     }
+     public void Eliminar() {
+        UsuarioBD usuarioBD = new UsuarioBD();
+        usuarioBD.setUsuario(this);
+        usuarioBD.Eliminar();
 
+    }
+    
+   
 }

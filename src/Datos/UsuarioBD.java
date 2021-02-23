@@ -65,5 +65,12 @@ public class UsuarioBD {
         Conexion cnn = new Conexion(sql, false);
         cnn.EjecutarSQL();
     }
+     public void Eliminar() {
+        Usuario u = this.Usuario;
+        String sql = "DELETE FROM Usuarios WHERE IdUsuario = "+   this.Usuario.getIdUsuario() + ";";
+        Conexion cnn = new Conexion(sql, false);
+        cnn.EjecutarSQL();
+    }
+    
 
 }

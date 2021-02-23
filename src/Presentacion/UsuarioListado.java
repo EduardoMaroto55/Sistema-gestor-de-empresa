@@ -7,6 +7,7 @@ package Presentacion;
 
 import Negocio.Usuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -85,8 +86,18 @@ public class UsuarioListado extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,6 +153,41 @@ public class UsuarioListado extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        int fila = tableUsuarios.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
+        } else{
+            String  id = tableUsuarios.getValueAt(fila, 0).toString(); 
+            UsuarioEditar obj = new UsuarioEditar();
+            obj.txtIdUsuario.setText(id);
+            obj.CargarDatos();
+            obj.txtUsuario.disable();
+            obj.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int fila = tableUsuarios.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(this,"Debe seleccionar una linea");
+        
+        }else{
+            String id = tableUsuarios.getValueAt(fila,0).toString();
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el usuario seleccionado?","Eliminar usuario",JOptionPane.YES_NO_OPTION);
+            if(respuesta==JOptionPane.YES_OPTION){
+               Usuario user = new Usuario();
+               user.setIdUsuario(Integer.parseInt(id));
+               user.Eliminar();
+               CargarListado();
+               
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,14 @@
  */
 package Presentacion;
 import Negocio.Usuario;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -17,6 +25,12 @@ public class UsuarioEditar extends javax.swing.JFrame {
      */
     public UsuarioEditar() {
         initComponents();
+          //CENTRA LA PANTALLA
+        setLocationRelativeTo(null);
+        //NO PERMITE CAMBIAR EL TAMAÑO
+        setResizable(false);
+        //AGREGA EL TITULO
+        setTitle("Editar artículo");
     }
 
     /**
@@ -42,6 +56,8 @@ public class UsuarioEditar extends javax.swing.JFrame {
         chbActivo = new javax.swing.JCheckBox();
         lblIdUsuario = new javax.swing.JLabel();
         txtIdUsuario = new javax.swing.JTextField();
+        lblImagen = new javax.swing.JLabel();
+        btnImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,7 +69,7 @@ public class UsuarioEditar extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btnCancelar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Volver");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -81,13 +97,21 @@ public class UsuarioEditar extends javax.swing.JFrame {
 
         lblIdUsuario.setText("Codigo:");
 
+        btnImagen.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnImagen.setText("Imagen");
+        btnImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuario)
@@ -106,42 +130,52 @@ public class UsuarioEditar extends javax.swing.JFrame {
                             .addComponent(txtIdUsuario)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIdUsuario)
-                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCorreo)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(chbActivo, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblContraseña)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnGuardar))
-                .addGap(60, 60, 60))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIdUsuario)
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblUsuario)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCorreo)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(chbActivo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblContraseña)
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnImagen))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,15 +190,60 @@ public class UsuarioEditar extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         Usuario user = new Usuario();
+        user.setIdUsuario(Integer.parseInt(txtIdUsuario.getText()));
         user.setUsuario(txtUsuario.getText());
         user.setCorreo(txtCorreo.getText());
         user.setNombre(txtNombre.getText());
         user.setContrasena(txtContraseña.getText());
         user.setActivo(chbActivo.isSelected());
-        user.Crear();
+        user.Editar();
+        Cerrar();
     
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
+        // CREA CARGADOR DE ARCHIVO
+        JFileChooser fc = new JFileChooser();
+        //CONFIGURA TITULO
+        fc.setDialogTitle("Seleccione una imagen");
+        //AGREGA FILTRO DE EXTENSIONES 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagenes jpg","jpg");
+        fc.setFileFilter(filter);
+        if(fc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            try {
+                //TOMA EL ARCHIVO
+                File archivo = new File(fc.getSelectedFile().toString());
+                //INDICA LA RUTA ORIGEN
+                String Origen = archivo.getPath();
+                //INDICA LA RUTA DESTINO
+                String Destino = System.getProperty("user.dir") +"\\Imagenes\\"+ txtIdUsuario.getText() + ".jpg";
+                
+                Path PathOrigen = Paths.get(Origen);
+                Path PathDestino = Paths.get(Destino);
+                
+                Files.copy(PathOrigen,PathDestino,REPLACE_EXISTING);
+            } catch (IOException e) {
+                String error= e.getMessage();
+            }
+        
+        }
+    }//GEN-LAST:event_btnImagenActionPerformed
+    private void Cerrar(){
+       UsuarioListado obj = new UsuarioListado();
+       obj.setVisible(true);
+       dispose();
+    }
+    
+    public void CargarDatos(){
+        Usuario u = new Usuario();
+        u.setIdUsuario(Integer.parseInt(txtIdUsuario.getText()));
+        u.Consulta();
+        txtUsuario.setText(u.getUsuario());
+        txtNombre.setText(u.getNombre());
+        txtCorreo.setText(u.getCorreo());
+        txtContraseña.setText(u.getContrasena());
+        chbActivo.setSelected(u.isActivo());
+    }
     /**
      * @param args the command line arguments
      */
@@ -203,11 +282,13 @@ public class UsuarioEditar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImagen;
     public javax.swing.JCheckBox chbActivo;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel lblContraseña;
     public javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblIdUsuario;
+    private javax.swing.JLabel lblImagen;
     public javax.swing.JLabel lblNombre;
     public javax.swing.JLabel lblUsuario;
     public javax.swing.JPasswordField txtContraseña;
