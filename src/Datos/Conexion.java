@@ -16,7 +16,6 @@ import java.sql.Statement;
  */
 public class Conexion {
     //Hola esto es un cambio en java netbeans como estas?
-    
 
     private String sql;
     private boolean resultadoEspe;
@@ -59,7 +58,7 @@ public class Conexion {
         try {
             //Crea la conexion a la base de datos
             Connection cnn;
-            Statement st ;
+            Statement st;
             Class.forName("com.mysql.jdbc.Driver");
             //String de conxion
             cnn = DriverManager.getConnection("jdbc:mysql://localhost/progra3?user=progra3&password=12345&useSSL=false");
@@ -68,10 +67,9 @@ public class Conexion {
                 resultado = st.executeQuery(sql);
             } else {
                 st.executeUpdate(sql);
-                 st.close();
+                st.close();
                 cnn.close();
             }
-           
 
         } catch (Exception e) {
             String error = e.getMessage();

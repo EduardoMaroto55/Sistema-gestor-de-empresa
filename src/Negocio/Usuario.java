@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Negocio;
+
 import Datos.UsuarioBD;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- * 
+ *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Usuario {
+
     private int idUsuario;
     private String usuario;
     private String nombre;
@@ -80,60 +82,61 @@ public class Usuario {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    public void Crear(){
-            UsuarioBD user = new UsuarioBD();
-            user.setUsuario(this);
-            user.crearUsuario();
-    
+
+    public void Crear() {
+        UsuarioBD user = new UsuarioBD();
+        user.setUsuario(this);
+        user.crearUsuario();
+
     }
-    
-    public ArrayList<Usuario> Listado(){
+
+    public ArrayList<Usuario> Listado() {
         ArrayList<Usuario> lista = new ArrayList<>();
         UsuarioBD user = new UsuarioBD();
         ResultSet rs = user.Listado();
         try {
-            while(rs.next()){
-            Usuario u = new Usuario();
-            u.setIdUsuario(rs.getInt("IdUsuario"));
-            u.setNombre(rs.getString("NombreUsuario"));
-            u.setUsuario(rs.getString("Usuario"));
-            u.setActivo(rs.getBoolean("Activo"));
-            lista.add(u);
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt("IdUsuario"));
+                u.setNombre(rs.getString("NombreUsuario"));
+                u.setUsuario(rs.getString("Usuario"));
+                u.setActivo(rs.getBoolean("Activo"));
+                lista.add(u);
             }
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             String error = e.getMessage();
-            
+
         }
         return lista;
     }
-    public void Editar(){
+
+    public void Editar() {
         UsuarioBD usuarioBD = new UsuarioBD();
         usuarioBD.setUsuario(this);
         usuarioBD.Editar();
-    
+
     }
-    
-    public void Consulta(){
+
+    public void Consulta() {
         UsuarioBD usuarioBD = new UsuarioBD();
         usuarioBD.setUsuario(this);
-        ResultSet rs = usuarioBD.Consulta();
+
         try {
-            if(rs.first()){
-                this.idUsuario=rs.getInt("IdUsuario");
-                this.usuario=rs.getString("Usuario");
-                this.correo=rs.getString("Correo");
-                this.nombre=rs.getString("NombreUsuario");
-                this.contrasena=rs.getString("Contraseña");
-                this.activo=rs.getBoolean("Activo");
+            ResultSet rs = usuarioBD.Consulta();
             
+            if (rs.first()) {
+                this.usuario = rs.getString("Usuario");
+                this.correo = rs.getString("Correo");
+                this.nombre = rs.getString("NombreUsuario");
+                this.contrasena = rs.getString("Contraseña");
+                this.activo = rs.getBoolean("Activo");
+
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             String error = e.getMessage();
         }
-        
-    
+
     }
 
 }
