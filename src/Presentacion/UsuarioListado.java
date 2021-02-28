@@ -46,7 +46,7 @@ public class UsuarioListado extends javax.swing.JFrame {
         for (int x = 0; x < lista.size(); x++) {
             Usuario u = lista.get(x);
 
-            String estado = "";
+            String estado = "Activo";
             if (!u.isActivo()) {
                 estado = "Inactivo";
             }
@@ -57,8 +57,9 @@ public class UsuarioListado extends javax.swing.JFrame {
                 estado});
 
         }
-
-        //ASIGNAR EL MODELO A LA TABLA      
+   
+        //ASIGNAR EL MODELO A LA TABLA   
+        tableUsuarios.setModel(model);
     }
 
     /**
@@ -101,13 +102,13 @@ public class UsuarioListado extends javax.swing.JFrame {
 
         tableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tableUsuarios);
@@ -137,8 +138,8 @@ public class UsuarioListado extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,16 +156,16 @@ public class UsuarioListado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        int fila = tableUsuarios.getSelectedRow();
-        if(fila==-1){
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
-        } else{
-            String  id = tableUsuarios.getValueAt(fila, 0).toString(); 
+         int fila = tableUsuarios.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una línea");
+        }
+        else {
+            String id = tableUsuarios.getValueAt(fila, 0).toString();
             UsuarioEditar obj = new UsuarioEditar();
             obj.txtIdUsuario.setText(id);
             obj.CargarDatos();
-            obj.txtUsuario.disable();
+            obj.txtIdUsuario.disable();
             obj.setVisible(true);
             dispose();
         }

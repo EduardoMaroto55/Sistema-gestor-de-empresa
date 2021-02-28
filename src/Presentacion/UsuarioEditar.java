@@ -6,7 +6,6 @@
 package Presentacion;
 import Negocio.Usuario;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +29,7 @@ public class UsuarioEditar extends javax.swing.JFrame {
         //NO PERMITE CAMBIAR EL TAMAÑO
         setResizable(false);
         //AGREGA EL TITULO
-        setTitle("Editar artículo");
+        setTitle("Editar artículo");     
     }
 
     /**
@@ -111,7 +110,7 @@ public class UsuarioEditar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuario)
@@ -132,9 +131,9 @@ public class UsuarioEditar extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -183,49 +182,51 @@ public class UsuarioEditar extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-      
+      Cerrar();
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        Usuario user = new Usuario();
-        user.setIdUsuario(Integer.parseInt(txtIdUsuario.getText()));
-        user.setUsuario(txtUsuario.getText());
-        user.setCorreo(txtCorreo.getText());
-        user.setNombre(txtNombre.getText());
-        user.setContrasena(txtContraseña.getText());
-        user.setActivo(chbActivo.isSelected());
-        user.Editar();
+       //CREA EL OBJETO
+        Usuario u = new Usuario();
+        //ASIGNA LOS ATRIBUTOS
+        u.setActivo(chbActivo.isSelected());
+        u.setContrasena(txtContraseña.getText());
+        u.setCorreo(txtCorreo.getText());
+        u.setIdUsuario(Integer.parseInt(txtIdUsuario.getText()));
+        u.setNombre(txtNombre.getText());
+        u.setUsuario(txtUsuario.getText());
+        //GUARDA EN LA BASE DE DATOS
+        u.Editar();
+        //CIERRA LA VENTANA
         Cerrar();
     
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
-        // CREA CARGADOR DE ARCHIVO
+      //CREA CARGADOR DE ARCHIVO
         JFileChooser fc = new JFileChooser();
         //CONFIGURA TITULO
         fc.setDialogTitle("Seleccione una imagen");
-        //AGREGA FILTRO DE EXTENSIONES 
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagenes jpg","jpg");
+        //AGREGA FILTRO DE EXTENSIONES
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagenes png","png");
         fc.setFileFilter(filter);
-        if(fc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 //TOMA EL ARCHIVO
                 File archivo = new File(fc.getSelectedFile().toString());
                 //INDICA LA RUTA ORIGEN
                 String Origen = archivo.getPath();
                 //INDICA LA RUTA DESTINO
-                String Destino = System.getProperty("user.dir") +"\\Imagenes\\"+ txtIdUsuario.getText() + ".jpg";
-                
+                String Destino = System.getProperty("user.dir") + "\\Imagenes\\" + txtIdUsuario.getText() + ".png";
                 Path PathOrigen = Paths.get(Origen);
                 Path PathDestino = Paths.get(Destino);
                 
-                Files.copy(PathOrigen,PathDestino,REPLACE_EXISTING);
-            } catch (IOException e) {
-                String error= e.getMessage();
+                Files.copy(PathOrigen, PathDestino, REPLACE_EXISTING);
+                
+            } catch (Exception e) {
+                String error = e.getMessage();
             }
-        
         }
     }//GEN-LAST:event_btnImagenActionPerformed
     private void Cerrar(){

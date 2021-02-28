@@ -111,37 +111,34 @@ public class Usuario {
         return lista;
     }
 
-    public void Editar() {
-        UsuarioBD usuarioBD = new UsuarioBD();
-        usuarioBD.setUsuario(this);
-        usuarioBD.Editar();
-
+   public void Editar(){
+        UsuarioBD usuario = new UsuarioBD();
+        usuario.setUsuario(this);
+        usuario.Editar();
     }
 
-    public void Consulta() {
-        UsuarioBD usuarioBD = new UsuarioBD();
-        usuarioBD.setUsuario(this);
-
+    public void Consulta(){
+        UsuarioBD usuario = new UsuarioBD();
+        usuario.setUsuario(this);
+        ResultSet rs = usuario.Consulta();
         try {
-            ResultSet rs = usuarioBD.Consulta();
-            
             if (rs.first()) {
-                this.usuario = rs.getString("Usuario");
-                this.correo = rs.getString("Correo");
-                this.nombre = rs.getString("NombreUsuario");
-                this.contrasena = rs.getString("Contraseña");
-                this.activo = rs.getBoolean("Activo");
-
+                this.idUsuario=rs.getInt("IdUsuario");
+                this.usuario=rs.getString("Usuario");
+                this.correo=rs.getString("Correo");
+                this.nombre=rs.getString("NombreUsuario");
+                this.contrasena=rs.getString("Contrasena");
+                this.activo=rs.getBoolean("Activo");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             String error = e.getMessage();
+            System.out.println(error);
         }
-
     }
      public void Eliminar() {
-        UsuarioBD usuarioBD = new UsuarioBD();
-        usuarioBD.setUsuario(this);
-        usuarioBD.Eliminar();
+        UsuarioBD usuario = new UsuarioBD();
+        usuario.setUsuario(this);
+        usuario.Eliminar();
 
     }
     

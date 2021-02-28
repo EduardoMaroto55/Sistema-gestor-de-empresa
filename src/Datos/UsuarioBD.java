@@ -52,24 +52,27 @@ public class UsuarioBD {
 
     }
 
-    public ResultSet Consulta() {
-        String sql = "SELECT IdUsuario, Usuario, Correo, NombreUsuario, Contrasena, Activo FROM Usuarios WHERE IdUsuario = " + this.Usuario.getIdUsuario() + ";";
-        Conexion cnn = new Conexion(sql, false);
-        cnn.EjecutarSQL();
-        return cnn.getResultado();
+   public ResultSet Consulta(){
+        //AGREGAR LA SENTENCIA
+        String sql = "SELECT IdUsuario, Usuario, Correo, NombreUsuario, Contrasena, Activo FROM Usuarios WHERE IdUsuario = " + this.user.getIdUsuario() + ";";
+        //CREA LA CONEXION
+        Conexion con = new Conexion(sql, true);
+        //EJECUTA LA SENTENCIA
+        con.EjecutarSQL();
+        //RETORNA EL DATASET
+        return con.getResultado();
     }
 
     public void Editar() {
-        Usuario u = this.Usuario;
+        Usuario u = this.user;
         String sql = "UPDATE Usuarios SET Usuario='" + u.getUsuario() + "', Correo='" + u.getCorreo() + "', NombreUsuario='" + u.getNombre() + "', Contrasena='" + u.getContrasena() + "', Activo=" + u.isActivo() + " WHERE IdUsuario = " + u.getIdUsuario() + ";";
         Conexion cnn = new Conexion(sql, false);
         cnn.EjecutarSQL();
     }
-     public void Eliminar() {
-        Usuario u = this.Usuario;
-        String sql = "DELETE FROM Usuarios WHERE IdUsuario = "+   this.Usuario.getIdUsuario() + ";";
-        Conexion cnn = new Conexion(sql, false);
-        cnn.EjecutarSQL();
+    public void Eliminar(){
+        String sql = "DELETE FROM Usuarios WHERE IdUsuario = " + this.user.getIdUsuario() + ";";
+        Conexion con = new Conexion(sql, false);
+        con.EjecutarSQL();
     }
     
 
