@@ -62,7 +62,13 @@ public class UsuarioBD {
         //RETORNA EL DATASET
         return con.getResultado();
     }
-
+    public ResultSet Autenticar(){
+        String sql = "SELECT IdUsuarios FROM Usuarios WHERE Usuario = '"+this.Usuario.getUsuario()+"' AND Contrasena= '"+this.Usuario.getContrasena()+"'";
+        Conexion con = new Conexion(sql,true);
+        con.EjecutarSQL();
+        return con.getResultado();
+    
+    }
     public void Editar() {
         Usuario u = this.user;
         String sql = "UPDATE Usuarios SET Usuario='" + u.getUsuario() + "', Correo='" + u.getCorreo() + "', NombreUsuario='" + u.getNombre() + "', Contrasena='" + u.getContrasena() + "', Activo=" + u.isActivo() + " WHERE IdUsuario = " + u.getIdUsuario() + ";";

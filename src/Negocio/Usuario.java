@@ -110,7 +110,20 @@ public class Usuario {
         }
         return lista;
     }
-
+   public void Autenticar(){
+       UsuarioBD usuario = new UsuarioBD();
+       usuario.setUsuario(this);
+       try {
+           ResultSet rs = usuario.Autenticar();
+           if (rs.first()) {
+               this.setIdUsuario((rs.getInt("IdUsuario")));
+           }
+       } catch (Exception e) {
+           String error = e.getMessage();
+       }
+   
+   
+   }
    public void Editar(){
         UsuarioBD usuario = new UsuarioBD();
         usuario.setUsuario(this);

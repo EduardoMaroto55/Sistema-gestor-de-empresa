@@ -5,6 +5,7 @@
  */
 package Presentacion;
 import Negocio.Usuario;
+import java.awt.Image;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,7 +31,8 @@ public class UsuarioEditar extends javax.swing.JFrame {
         //NO PERMITE CAMBIAR EL TAMAÑO
         setResizable(false);
         //AGREGA EL TITULO
-        setTitle("Editar artículo");     
+        setTitle("Editar artículo");
+        CargarImagen();
     }
 
     /**
@@ -229,6 +232,12 @@ public class UsuarioEditar extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnImagenActionPerformed
+    private void CargarImagen(){
+        String ruta = System.getProperty("user.dir"+"\\Imagenes\\"+txtIdUsuario.getText()+".png");
+        lblImagen.setIcon(new ImageIcon(new ImageIcon(ruta).getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_DEFAULT)));
+        
+    }
+    
     private void Cerrar(){
        UsuarioListado obj = new UsuarioListado();
        obj.setVisible(true);
@@ -244,6 +253,7 @@ public class UsuarioEditar extends javax.swing.JFrame {
         txtCorreo.setText(u.getCorreo());
         txtContraseña.setText(u.getContrasena());
         chbActivo.setSelected(u.isActivo());
+        CargarImagen();
     }
     /**
      * @param args the command line arguments
