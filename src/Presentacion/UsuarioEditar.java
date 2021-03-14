@@ -92,8 +92,6 @@ public class UsuarioEditar extends javax.swing.JFrame {
 
         lblContraseña.setText("Contraseña:");
 
-        txtContraseña.setText("jPasswordField1");
-
         lblUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lblUsuario.setText("Usuario:");
 

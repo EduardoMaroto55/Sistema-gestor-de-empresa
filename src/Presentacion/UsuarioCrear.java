@@ -82,8 +82,6 @@ public class UsuarioCrear extends javax.swing.JFrame {
 
         lblContraseña.setText("Contraseña:");
 
-        txtContraseña.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

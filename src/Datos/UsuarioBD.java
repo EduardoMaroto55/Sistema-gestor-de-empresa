@@ -63,7 +63,7 @@ public class UsuarioBD {
         return con.getResultado();
     }
     public ResultSet Autenticar(){
-        String sql = "SELECT IdUsuarios FROM Usuarios WHERE Usuario = '"+this.Usuario.getUsuario()+"' AND Contrasena= '"+this.Usuario.getContrasena()+"'";
+        String sql = "SELECT IdUsuario FROM Usuarios WHERE Usuario = '"+this.user.getUsuario()+"' AND Contrasena= '"+this.user.getContrasena()+"'";
         Conexion con = new Conexion(sql,true);
         con.EjecutarSQL();
         return con.getResultado();

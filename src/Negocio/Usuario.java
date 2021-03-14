@@ -118,7 +118,7 @@ public class Usuario {
            if (rs.first()) {
                this.setIdUsuario((rs.getInt("IdUsuario")));
            }
-       } catch (Exception e) {
+       } catch (SQLException e) {
            String error = e.getMessage();
        }
    
