@@ -38,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenuItem();
         menuFacturacion = new javax.swing.JMenu();
+        mnuFactura = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +71,15 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(menuMantenimiento);
 
         menuFacturacion.setText("Facturación");
+
+        mnuFactura.setText("Facturación");
+        mnuFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFacturaActionPerformed(evt);
+            }
+        });
+        menuFacturacion.add(mnuFactura);
+
         jMenuBar1.add(menuFacturacion);
 
         menuSalir.setText("Salir");
@@ -130,6 +140,12 @@ public class Principal extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_menuUsuariosActionPerformed
 
+    private void mnuFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturaActionPerformed
+        // TODO add your handling code here:
+        Facturacion obj = new Facturacion();
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuFacturaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,5 +187,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMantenimiento;
     private javax.swing.JMenu menuSalir;
     private javax.swing.JMenuItem menuUsuarios;
+    private javax.swing.JMenuItem mnuFactura;
     // End of variables declaration//GEN-END:variables
 }
