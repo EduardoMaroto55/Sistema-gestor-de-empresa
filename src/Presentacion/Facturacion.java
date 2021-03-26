@@ -5,7 +5,12 @@
  */
 package Presentacion;
 
+import Negocio.Articulo;
 import Negocio.Cliente;
+import Negocio.PedidoEncabezado;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +21,7 @@ public class Facturacion extends javax.swing.JFrame {
     
     public static int IdUsuario;
     private ArrayList<Integer> listaCliente = new ArrayList<>();
+    private int IdArticulo=0;
     /**
      * Creates new form Facturacion
      */
@@ -42,9 +48,55 @@ public class Facturacion extends javax.swing.JFrame {
             listaCliente.add(lista.get(x).getIdCliente());
 
         }
-
+        
+       //AGREGA LISTENER EN EL COMBO
+        cbCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SeleccionarCliente();
+            }
+        });
+    }
+    private void SeleccionarCliente(){
+        //NUMERO DE PEDIDO ACTUAL
+        int idPedido = Integer.parseInt(lblPedido.getText());
+        //CREAR OBJETO PEDIDOENCABEZADO
+        PedidoEncabezado encabezado = new PedidoEncabezado();
+        //ASIGNA LOS ATRIBUTOS
+        encabezado.setIdUsuario(IdUsuario);
+        encabezado.setIdPedido(idPedido);
+        encabezado.setIdCliente(listaCliente.get(cbCliente.getSelectedIndex()));
+        //VALIDA SI SE SELECCIONO UN CLIENTE
+        if (encabezado.getIdCliente() > 0) {
+            if (idPedido == 0) {
+                //SI EL PEDIDO ES IGUAL A 0 INSERTA
+                encabezado.Insertar();
+                lblPedido.setText(String.valueOf(encabezado.getIdPedido()));
+                
+            } 
+            else{
+                    //SI EL PEDIDO ES DISTINTO A 0 ACTUALIZA
+            
+            }
+        }
+        
+    }
+    private void BuscarCodigo(){
+          Articulo a = new Articulo();
+          a.setCodigoBarras(txtCodigo.getText());
+          a.ConsultaCodigo();
+          IdArticulo = a.getIdArticulo();
+          lblNombre.setText(a.getNombreArticulo());
+          txtPrecio.setText(String.valueOf(a.getPrecio()));
+          txtIVA.setText(String.valueOf(a.getIVA()));
+          txtSubtotal.setText(String.valueOf(a.getPrecio() + a.getIVA()));
+         //IdArticulo, CodigoBarras, NombreArticulo, Precio, IVA, Saldo 
+          
+    
+    
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +121,7 @@ public class Facturacion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lblNombr = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         txtIVA = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
@@ -88,7 +140,7 @@ public class Facturacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
         lblNP.setText("Número de factura:");
@@ -144,11 +196,22 @@ public class Facturacion extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
         lblCodigoAr.setText("Código artículo");
 
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         lblDescripcion.setText("Descripción");
 
@@ -160,7 +223,7 @@ public class Facturacion extends javax.swing.JFrame {
 
         jLabel6.setText("Cantidad");
 
-        lblNombr.setText("NombreArticulo");
+        lblNombre.setText("NombreArticulo");
 
         btnAgregar.setText("Agregar");
 
@@ -179,7 +242,7 @@ public class Facturacion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDescripcion)
-                    .addComponent(lblNombr))
+                    .addComponent(lblNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
@@ -226,14 +289,14 @@ public class Facturacion extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
-                            .addComponent(lblNombr)
+                            .addComponent(lblNombre)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
 
         tbDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -265,7 +328,7 @@ public class Facturacion extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel7.setText("Subtotal");
 
@@ -323,9 +386,8 @@ public class Facturacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -349,6 +411,20 @@ public class Facturacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            BuscarCodigo();
+            
+        }
+        
+    }//GEN-LAST:event_txtCodigoKeyPressed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        BuscarCodigo();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -407,7 +483,7 @@ public class Facturacion extends javax.swing.JFrame {
     public javax.swing.JLabel lblDescripcion;
     public javax.swing.JLabel lblIVA;
     public javax.swing.JLabel lblNP;
-    public javax.swing.JLabel lblNombr;
+    public javax.swing.JLabel lblNombre;
     public javax.swing.JLabel lblPedido;
     public javax.swing.JLabel lblSubtotal;
     public javax.swing.JLabel lblTotal;

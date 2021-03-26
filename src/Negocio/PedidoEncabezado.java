@@ -6,6 +6,8 @@
 
 package Negocio;
 
+import Datos.PedidoEncabezadoBD;
+import java.sql.ResultSet;
 /**
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
@@ -77,7 +79,33 @@ public class PedidoEncabezado {
     public void setTotal(double Total) {
         this.Total = Total;
     }
+
+    //METODO INSERTAR - DEVUELVE UN NUMERO DE PEDIDO
+    public void Insertar() {
+        PedidoEncabezadoBD encabezado = new PedidoEncabezadoBD();
+        //ASIGNA LOS DATOS
+        encabezado.setEncabezado(this);
+        //INSERTA EL PEDIDO
+        encabezado.Insertar();
+        //OBTIENE EL ID DE PEDIDO
+        ResultSet rs = encabezado.ObtenerPedido();
+        try {
+            if (rs.first()) {
+                this.setIdPedido(rs.getInt("IdPedidoEncabezado"));
+
+            }
+
+        } catch (Exception e) {
+            String error = e.getMessage();
+        }
+
+    }
+    //METODO ACTUALIZAR
+    public void Actualizar(){
+        PedidoEncabezadoBD encabezado = new PedidoEncabezadoBD();
+        encabezado.setEncabezado(this);
+        encabezado.Actualizar();
     
-    
+    }
 
 }

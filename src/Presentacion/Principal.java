@@ -143,6 +143,7 @@ public class Principal extends javax.swing.JFrame {
     private void mnuFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFacturaActionPerformed
         // TODO add your handling code here:
         Facturacion obj = new Facturacion();
+        obj.IdUsuario = IdUsuario;
         obj.setVisible(true);
     }//GEN-LAST:event_mnuFacturaActionPerformed
 
